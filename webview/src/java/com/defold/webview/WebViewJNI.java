@@ -331,7 +331,8 @@ public class WebViewJNI {
             public void run() {
                 if( WebViewJNI.this.infos[webview_id] != null )
                 {
-                    if( WebViewJNI.this.infos[webview_id].layout != null )
+                    WebViewInfo info = WebViewJNI.this.infos[webview_id];
+                    if( info.layout != null && info.first == 0 )
                     {
                         WindowManager wm = activity.getWindowManager();
                         wm.removeView(WebViewJNI.this.infos[webview_id].layout);
