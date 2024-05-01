@@ -24,6 +24,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings;
+import android.webkit.WebResourceRequest;
 
 import android.util.Log;
 
@@ -95,8 +96,7 @@ public class WebViewJNI {
             return trimTrailingSlash(continueLoadingUrl).equals(trimTrailingSlash(url));
         }
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        private boolean handleOverrideUrlLoading(String url) {
             if( url.startsWith(PACKAGE_NAME) )
             {
                 // Try to find an app that can open the url scheme,
@@ -121,6 +121,18 @@ public class WebViewJNI {
             // or not
             webviewJNI.onPageLoading(url, webviewID, requestID);
             return true;
+        }
+
+        @SuppressWarnings("deprecation")
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            return handleOverrideUrlLoading(url);
+        }
+
+        @RequiresApi(Build.VERSION_CODES.N)
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            return handleOverrideUrlLoading(request.getUrl().toString());
         }
 
         @Override
