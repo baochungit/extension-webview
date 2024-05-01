@@ -240,7 +240,7 @@ public class WebViewJNI {
 
         info.webview.setHapticFeedbackEnabled(true);
 
-        info.webview.requestFocusFromTouch();
+        // info.webview.requestFocusFromTouch();
 
         info.webviewChromeClient = new CustomWebChromeClient(WebViewJNI.this, webview_id);
         info.webview.setWebChromeClient(info.webviewChromeClient);
@@ -250,6 +250,7 @@ public class WebViewJNI {
 
         WebSettings webSettings = info.webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        // webSettings.setNeedInitialFocus(false)
         webSettings.setAllowFileAccessFromFileURLs(true);
 
         info.webview.addJavascriptInterface(info.webviewClient, JS_NAMESPACE);
