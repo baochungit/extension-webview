@@ -129,7 +129,7 @@ public class WebViewJNI {
             return handleOverrideUrlLoading(url);
         }
 
-        @RequiresApi(Build.VERSION_CODES.N)
+        @TargetApi(Build.VERSION_CODES.N)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             return handleOverrideUrlLoading(request.getUrl().toString());
