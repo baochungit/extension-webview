@@ -53,7 +53,7 @@ public class WebViewJNI {
         public int requestID;
         private String continueLoadingUrl;
         private WebViewJNI webviewJNI;
-        private String PACKAGE_NAME;
+        // private String PACKAGE_NAME;
 
         // This is a hack to counter for the case where the load() experiences an error
         // In that case, the onReceivedError will be called, and onPageFinished will be called TWICE
@@ -65,7 +65,7 @@ public class WebViewJNI {
             this.activity = activity;
             this.webviewJNI = webviewJNI;
             this.webviewID = webview_id;
-            PACKAGE_NAME = activity.getApplicationContext().getPackageName();
+            // PACKAGE_NAME = activity.getApplicationContext().getPackageName();
             reset(-1);
         }
 
@@ -98,8 +98,8 @@ public class WebViewJNI {
         }
 
         private boolean handleOverrideUrlLoading(String url) {
-            if( url.startsWith(PACKAGE_NAME) )
-            {
+            // if( url.startsWith(PACKAGE_NAME) )
+            if (url.contains("://") && !url.startsWith("http://") && !url.startsWith("https://")) {
                 // Try to find an app that can open the url scheme,
                 // otherwise continue as usual error.
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -115,7 +115,7 @@ public class WebViewJNI {
             // the continueLoadingUrl value is set as a result of a call to
             // webviewJNI.onPageLoading (see below) which will let the client
             // either allow or block the page from loading
-            if( shouldContinueLoadingUrl(url) ) {
+            if (shouldContinueLoadingUrl(url)) {
                 return false;
             }
             // block the page from loading and ask the client if it should load
