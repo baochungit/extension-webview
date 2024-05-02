@@ -97,7 +97,7 @@ public class WebViewJNI {
             return trimTrailingSlash(continueLoadingUrl).equals(trimTrailingSlash(url));
         }
 
-        private boolean handleOverrideUrlLoading(String url) {
+        /*private boolean handleOverrideUrlLoading(String url) {
             if( url.startsWith(PACKAGE_NAME) )
             {
                 // Try to find an app that can open the url scheme,
@@ -134,7 +134,7 @@ public class WebViewJNI {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             return handleOverrideUrlLoading(request.getUrl().toString());
-        }
+        }*/
 
         @Override
         public void onPageFinished(WebView view, String url) {
