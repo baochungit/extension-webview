@@ -306,18 +306,20 @@ int Platform_SetPosition(lua_State* L, int webview_id, int x, int y, int width, 
     CHECK_WEBVIEW_AND_RETURN();
     #if defined(DM_PLATFORM_IOS)
     CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat scale = [[UIScreen mainScreen] scale];
     #elif defined(DM_PLATFORM_OSX)
     CGRect screenRect = [dmGraphics::GetNativeOSXNSView() frame];
+    CGFloat scale = [[NSScreen mainScreen] backingScaleFactor];
     #endif
 
-    CGFloat frameWidth = width >= 0 ? width : screenRect.size.width;
-    CGFloat frameHeight = height >= 0 ? height : screenRect.size.height;
+    CGFloat frameWidth = width >= 0 ? (width / scale) : screenRect.size.width;
+    CGFloat frameHeight = height >= 0 ? (height / scale) : screenRect.size.height;
     CGRect frame = CGRectMake(
-        screenRect.origin.x + x,
+        screenRect.origin.x + (x / scale),
         #if defined(DM_PLATFORM_OSX)
-        screenRect.origin.y + screenRect.size.height - frameHeight - y,
+        screenRect.origin.y + screenRect.size.height - frameHeight - (y / scale),
         #else
-        screenRect.origin.y + y,
+        screenRect.origin.y + (y / scale),
         #endif
         frameWidth,
         frameHeight
