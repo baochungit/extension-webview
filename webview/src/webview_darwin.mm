@@ -187,6 +187,7 @@ int Platform_Create(lua_State* L, dmWebView::WebViewInfo* _info)
     navigationDelegate->m_PendingUrl = NULL;
     navigationDelegate->m_DecisionHandler = NULL;
     view.navigationDelegate = navigationDelegate;
+    view.scrollView.bounces = NO;
 
     g_WebView.m_WebViews[webview_id] = view;
     g_WebView.m_WebViewDelegates[webview_id] = navigationDelegate;
