@@ -171,16 +171,12 @@ int Platform_Create(lua_State* L, dmWebView::WebViewInfo* _info)
 
     g_WebView.m_Info[webview_id] = *_info;
 #if defined(DM_PLATFORM_IOS)
-    UIScreen* screen = [UIScreen mainScreen];
-
-    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    WKWebView *view = [[WKWebView alloc] initWithFrame:screen.bounds configuration:configuration];
+    CGRect gameFrame = [dmGraphics::GetNativeiOSUIView() frame];
 #elif defined(DM_PLATFORM_OSX)
     CGRect gameFrame = [dmGraphics::GetNativeOSXNSView() frame];
-
+#endif
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     WKWebView *view = [[WKWebView alloc] initWithFrame:gameFrame configuration:configuration];
-#endif
     WebViewDelegate* navigationDelegate = [WebViewDelegate alloc];
     navigationDelegate->m_WebViewID = webview_id;
     navigationDelegate->m_RequestID = 0;
@@ -309,8 +305,6 @@ int Platform_SetPosition(lua_State* L, int webview_id, int x, int y, int width, 
 {
     CHECK_WEBVIEW_AND_RETURN();
     #if defined(DM_PLATFORM_IOS)
-    // CGRect screenRect = [[UIScreen mainScreen] bounds];
-    // CGFloat scale = [[UIScreen mainScreen] scale];
     UIView* glview = (UIView*)dmGraphics::GetNativeiOSUIView();
     CGRect screenRect = glview.frame;
     CGFloat scale = glview.layer.contentsScale;
