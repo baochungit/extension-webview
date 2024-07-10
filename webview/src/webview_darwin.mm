@@ -248,10 +248,10 @@ int Platform_ContinueOpen(lua_State* L, int webview_id, int request_id, const ch
 {
     CHECK_WEBVIEW_AND_RETURN();
     WebViewDelegate* delegate = g_WebView.m_WebViewDelegates[webview_id];
-    if ([delegate->m_PendingUrl isEqualToString:[NSString stringWithUTF8String: url]]) {
+    // if ([delegate->m_PendingUrl isEqualToString:[NSString stringWithUTF8String: url]]) {
         delegate->m_DecisionHandler(WKNavigationActionPolicyAllow);
         delegate->m_DecisionHandler = NULL;
-    }
+    // }
     return request_id;
 }
 
@@ -259,10 +259,10 @@ int Platform_CancelOpen(lua_State* L, int webview_id, int request_id, const char
 {
     CHECK_WEBVIEW_AND_RETURN();
     WebViewDelegate* delegate = g_WebView.m_WebViewDelegates[webview_id];
-    if ([delegate->m_PendingUrl isEqualToString:[NSString stringWithUTF8String: url]]) {
+    // if ([delegate->m_PendingUrl isEqualToString:[NSString stringWithUTF8String: url]]) {
         delegate->m_DecisionHandler(WKNavigationActionPolicyCancel);
         delegate->m_DecisionHandler = NULL;
-    }
+    // }
     return request_id;
 }
 
