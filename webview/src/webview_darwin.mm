@@ -183,11 +183,9 @@ int Platform_Create(lua_State* L, dmWebView::WebViewInfo* _info)
     navigationDelegate->m_PendingUrl = NULL;
     navigationDelegate->m_DecisionHandler = NULL;
     view.navigationDelegate = navigationDelegate;
-    if ([view respondsToSelector:@selector(scrollView)])
-    {
-      view.scrollView.bounces = NO;
-    }
-
+#if defined(DM_PLATFORM_IOS)
+    view.scrollView.bounces = NO;
+#endif
     g_WebView.m_WebViews[webview_id] = view;
     g_WebView.m_WebViewDelegates[webview_id] = navigationDelegate;
 #if defined(DM_PLATFORM_IOS)
